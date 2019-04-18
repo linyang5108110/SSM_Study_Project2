@@ -5,6 +5,7 @@ import java.util.List;
 public class PageBean<T> {
     private Integer pageNum;//当前页码
     private Integer pageSize;//当前页显示条数 private Long totalCount;//总条数
+    private Integer totalCount;//总条数
     private Integer totalPage;//总页数
     private List<T> pageList;//当前页显示的数据列表
 
@@ -22,6 +23,14 @@ public class PageBean<T> {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(Integer totalCount) {
+        this.totalCount = totalCount;
     }
 
     public Integer getTotalPage() {
@@ -45,6 +54,7 @@ public class PageBean<T> {
         return "PageBean{" +
                 "pageNum=" + pageNum +
                 ", pageSize=" + pageSize +
+                ", totalCount=" + totalCount +
                 ", totalPage=" + totalPage +
                 ", pageList=" + pageList +
                 '}';

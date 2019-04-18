@@ -1,5 +1,7 @@
 package com.linyang.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.linyang.dao.OrderDao;
 import com.linyang.domian.Order;
 import com.linyang.service.OrderService;
@@ -37,5 +39,14 @@ public class OrderServiceImpl implements OrderService {
                  this.orderDao.delOne(id);
             }
         }
+    }
+
+    @Override
+    public PageInfo<Order> findPageInfo(Integer pageNum, Integer pageSize) {
+        //三行代码解决分页查询
+        PageHelper.startPage(pageNum,pageSize);
+        List<Order> all = orderDao.findAll();
+        PageInfo<Order> pageInfo = new PageInfo<>(all);
+        return pageInfo;
     }
 }

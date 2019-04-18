@@ -29,4 +29,12 @@ public interface ProductDao {
 
     @Delete("DELETE FROM product WHERE id = #{id}")
     void delOne(Integer id);
+
+    //查询总条数，分页查询需要
+    @Select("SELECT COUNT(1) FROM product")
+    Integer findTotalCount();
+
+    //根据开始/结束 参数进行分页查询
+    @Select("SELECT * FROM product LIMIT #{param1},#{param2}")
+    List<Product> findByPage(Integer startRow, Integer endRow);
 }
