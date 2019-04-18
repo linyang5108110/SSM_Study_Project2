@@ -39,4 +39,14 @@ public class PageBean<T> {
     public void setPageList(List<T> pageList) {
         this.pageList = pageList;
     }
+
+    @Override
+    public String toString() {
+        return "PageBean{" +
+                "pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", totalPage=" + totalPage +
+                ", pageList=" + pageList +
+                '}';
+    }
 }
