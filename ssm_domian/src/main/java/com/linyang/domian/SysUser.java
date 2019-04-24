@@ -1,5 +1,7 @@
 package com.linyang.domian;
 
+import java.util.List;
+
 public class SysUser {
 
     private Long id;
@@ -8,6 +10,16 @@ public class SysUser {
     private String password;
     private String phoneNum;
     private int status;
+    //一个用户可以是多个角色
+    private List<Role> roleList;
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 
     public Long getId() {
         return id;

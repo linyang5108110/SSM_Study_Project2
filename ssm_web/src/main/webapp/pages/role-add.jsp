@@ -101,7 +101,7 @@
 
 						<div class="col-md-2 title">角色名称</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="roleName"
+							<input id="RoleName" onchange="VerificationOrleName()" type="text" class="form-control" name="roleName"
 								placeholder="角色名称" value="">
 						</div>
 						<div class="col-md-2 title">角色描述</div>
@@ -115,7 +115,7 @@
 				</div>
 				<!--订单信息/--> <!--工具栏-->
 				<div class="box-tools text-center">
-					<button type="submit" class="btn bg-maroon">保存</button>
+					<button id="saveBtn" type="submit" class="btn bg-maroon">保存</button>
 					<button type="button" class="btn bg-default"
 						onclick="history.back(-1);">返回</button>
 				</div>
@@ -140,6 +140,42 @@
 
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	  <script type="text/javascript">
+
+		  function VerificationOrleName() {
+			  var roleName = $("#RoleName").val();
+
+			   $.ajax({
+				    url:"${pageContext.request.contextPath}/role/findByName",//请求地址
+				    data:{"roleName":roleName},//参数
+				    type:"POST",//亲求方式
+				    dataType:"JSON",//返回数据类型
+				    success:function (data){//亲求成功函数
+						//如果返回0 ，说明不唯一
+						if(data == "0"){
+							//设置边框颜色为红色
+							// $("#username").attr("style","border:solid 1px red;");
+							$("#RoleName").attr("style","border:solid 1px red;");
+							//提交按钮不可用
+							// $("#saveBtn").prop("disabled","disabled");
+							$("#saveBtn").prop("disabled",true);
+						}else{
+							//如果返回1 ，说明唯一
+							// 设置边框为原来的样式
+							//取消新添加的样式
+							$("#RoleName").attr("style","none");
+							//添加原来的样式
+							$("#RoleName").addClass("form-control");
+							// 设置提交按钮可用
+							$("#saveBtn").prop("disabled",false);
+						}
+
+				    }
+
+			   })
+
+		  }
+	  </script>
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQueryUI/jquery-ui.min.js"></script>
 	<script>

@@ -70,7 +70,7 @@ public class OrderController {
     public String save(Order order) {
         orderService.save(order);
 
-        return "redirect:/order/findAll";
+        return "redirect:/order/PageFindAll";
     }
 
     /**
@@ -82,7 +82,7 @@ public class OrderController {
     @RequestMapping("/delOne")
     public String delOne(Integer id) {
         orderService.delOne(id);
-        return "redirect:/order/findAll";
+        return "redirect:/order/PageFindAll";
     }
 
     /**
@@ -94,7 +94,7 @@ public class OrderController {
             System.out.println(id);
         }
         orderService.delMany(ids);
-        return "redirect:/order/findAll";
+        return "redirect:/order/PageFindAll";
     }
 
 

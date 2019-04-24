@@ -1,5 +1,6 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!-- 页面头部 -->
 <header class="main-header">
 	<!-- Logo -->
@@ -15,17 +16,23 @@
 		</a>
 
 		<div class="navbar-custom-menu">
+
 			<ul class="nav navbar-nav">
 
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="${pageContext.request.contextPath}/img/user2-160x160.jpg"
 						class="user-image" alt="User Image"> <span class="hidden-xs">
+<%--					使用security标签--%>
 							<security:authentication property="principal.username" />
+             <%--
+             使用session方式获得用户名
+            ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}--%>
 					</span>
 
 				</a>
 					<ul class="dropdown-menu">
+
 						<!-- User image -->
 						<li class="user-header"><img
 							src="${pageContext.request.contextPath}/img/user2-160x160.jpg"
@@ -37,10 +44,11 @@
 								<a href="#" class="btn btn-default btn-flat">修改密码</a>
 							</div>
 							<div class="pull-right">
-								<a href="${pageContext.request.contextPath}/login.jsp"
+								<a href="${pageContext.request.contextPath}/logout"
 									class="btn btn-default btn-flat">注销</a>
 							</div>
 						</li>
+
 					</ul></li>
 
 			</ul>

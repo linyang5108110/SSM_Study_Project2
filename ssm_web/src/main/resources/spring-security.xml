@@ -34,7 +34,7 @@
         <security:csrf disabled="true"/>
 
         <!-- 退出 -->
-<!--        <security:logout invalidate-session="true" logout-url="/login" logout-success-url="/login.html"/>-->
+        <security:logout invalidate-session="true" logout-url="/logout" logout-success-url="/login.jsp"/>
     </security:http>
 
     <!-- 配置认证信息 -->
@@ -45,10 +45,14 @@
              必须实现UserDatelsService的接口
         -->
         <security:authentication-provider user-service-ref="userServiceImpl">
+            <!--指定使用spring容器中passwordEncoder进行加密操作-->
+            <security:password-encoder ref="passwordEncoder"/>
 <!--            <security:user-service>-->
 <!--                <security:user name="admin" password="{noop}admin" authorities="ROLE_USER"/>-->
 <!--            </security:user-service>-->
         </security:authentication-provider>
-    </security:authentication-manager>
+       </security:authentication-manager>
 
+    <!--声明一个加密的工具类-->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 </beans>

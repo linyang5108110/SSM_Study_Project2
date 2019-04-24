@@ -236,12 +236,11 @@
 				<div class="box-footer">
 					<div class="pull-left">
 						<div class="form-group form-inline">
-							总共${pageInfo.pages} 页，共${pageInfo.total} 条数据。 每页 <select class="form-control">
-								<option>10</option>
-								<option>15</option>
-								<option>20</option>
-								<option>50</option>
-								<option>80</option>
+							总共${pageInfo.pages} 页，共${pageInfo.total} 条数据。 每页 <select onchange="toPage(1)" id="selectPageAll" class="form-control">
+							    <option value="5">5</option>
+							    <option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
 							</select> 条
 						</div>
 					</div>
@@ -252,7 +251,7 @@
 							<li><a href="javascript:toPage(${pageInfo.prePage})">上一页</a></li>
 							 <c:forEach begin="1" end="${pageInfo.pages}" var="i">
 								 <c:if test="${i == pageInfo.pageNum}">
-									 <li><a style="color: red" href="javascript:toPage(${i})">${i}</a></li>
+									 <li><a style="color: red" href="javascript:void(0)">${i}</a></li>
 								 </c:if>
 								 <c:if test="${i != pageInfo.pageNum}">
 									 <li><a href="javascript:toPage(${i})">${i}</a></li>
@@ -289,7 +288,8 @@
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script type="text/javascript">
-
+		<%--$("#PageS option[value=${productPageBean.pageSize}]").prop("selected","selected");--%>
+		  $("#selectPageAll option[value=${pageInfo.pageSize}]").prop("selected","selected");
 		  function delOne(id) {
 			   if(confirm("您确定要删除吗？"))
 			   {
@@ -311,7 +311,8 @@
 			   {
 			   	 return;
 			   }
-			  location.href="${pageContext.request.contextPath}/order/PageFindAll?pageNum="+pageNum;
+			   var pageSize = $("#selectPageAll").val();
+			  location.href="${pageContext.request.contextPath}/order/PageFindAll?pageNum="+pageNum+"&pageSize="+pageSize;
 		  }
 
 	</script>

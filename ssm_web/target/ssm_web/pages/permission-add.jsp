@@ -1,5 +1,6 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -90,7 +91,7 @@
 			</section>
 			<!-- 内容头部 /-->
 
-			<form action="${pageContext.request.contextPath}/permission/save.do"
+			<form action="${pageContext.request.contextPath}/permission/save"
 				method="post">
 				<!-- 正文区域 -->
 				<section class="content"> <!--产品信息-->
@@ -109,7 +110,16 @@
 							<input type="text" class="form-control" name="url"
 								placeholder="url" value="">
 						</div>
-										
+
+						<div class="col-md-2 title">&nbsp;&nbsp;父&nbsp;&nbsp;权&nbsp;&nbsp;限&nbsp;&nbsp;</div>
+						<div class="col-md-4 data">
+							<select class="form-control select2" style="width: 100%"
+									name="productStatus">
+								<c:forEach items="${PermissionParentList}" var="p">
+									<option value="${p.id}" >${p.permissionName}</option>
+								</c:forEach>
+							</select>
+						</div>
 
 					</div>
 				</div>

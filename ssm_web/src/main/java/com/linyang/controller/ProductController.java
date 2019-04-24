@@ -49,7 +49,6 @@ public class ProductController {
     @RequestMapping("save")
     public String save(Product product) {
 
-        System.out.println(product);
         //保存操作
         productService.save(product);
         //指定页面:请求查询全部G
@@ -100,7 +99,7 @@ public class ProductController {
     public String delOne(Integer id) {
 
         productService.delOne(id);
-        return "redirect:/product/findAll";
+        return "redirect:/product/findByPage";
     }
 
     /**
@@ -115,7 +114,7 @@ public class ProductController {
             System.out.println(id);
         }
         productService.delMany(ids);
-        return "redirect:/product/findAll";
+        return "redirect:/product/findByPage";
     }
 
 
