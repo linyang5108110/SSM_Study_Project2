@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface UserService {
 
-
     List<SysUser> finall();
 
     PageInfo<SysUser> findByPage(Integer pageNum, Integer pageSize);
@@ -19,4 +18,11 @@ public interface UserService {
     void save(SysUser sysUser);
 
     SysUser findById(Integer id);
+
+    /**
+     * 保存用户角色添加
+     * @param userId
+     * @param roleIds
+     */
+    void saveUserRole(Integer userId, Integer[] roleIds);
 }

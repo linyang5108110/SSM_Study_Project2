@@ -1,5 +1,6 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
@@ -23,7 +24,7 @@
 			<li id="admin-index"><a
 				href="${pageContext.request.contextPath}/pages/main.jsp"><i
 					class="fa fa-dashboard"></i> <span>首页</span></a></li>
-
+			<security:authorize access="hasAnyRole('ROLE_ADMIN')">
 			<li class="treeview"><a href="#"> <i class="fa fa-cogs"></i>
 					<span>系统管理</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -50,6 +51,9 @@
 							class="fa fa-circle-o"></i> 访问日志
 					</a></li>
 				</ul></li>
+			</security:authorize>
+
+			<security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
 			<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
 					<span>基础数据</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -67,6 +71,7 @@
 					</a></li>
 
 				</ul></li>
+			</security:authorize>
 
 		</ul>
 	</section>

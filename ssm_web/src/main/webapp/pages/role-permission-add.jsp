@@ -1,5 +1,8 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--jstl的函数库--%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -92,11 +95,11 @@
 			<!-- 内容头部 /-->
 
 			<form
-				action="${pageContext.request.contextPath}/role/addPermissionToRole.do"
+				action="${pageContext.request.contextPath}/role/saveRolePermissions"
 				method="post">
 				<!-- 正文区域 -->
 				<section class="content"> <input type="hidden" name="roleId"
-					value="${role.id}">
+					value="${roleId}">
 					<table id="dataList"
 							class="table table-bordered table-striped table-hover dataTable">
 							<thead>
@@ -112,11 +115,10 @@
 							<tbody>
 								<c:forEach items="${permissionList}" var="permission">
 									<tr>
-										<td><input name="ids" type="checkbox" value="${permission.id}"></td>
+										<td><input name="permissionIds" type="checkbox"${fn:contains(rolePermissionStr,",".concat(permission.id).concat(","))?"checked":""} value="${permission.id}"></td>
 										<td>${permission.id}</td>
 										<td>${permission.permissionName }</td>
 										<td>${permission.url}</td>
-										
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -10,4 +10,8 @@ public interface RoleService {
     String findByName(String roleName);
 
     void save(Role role);
+
+    Role findById(Integer roleId);
+
+    void saveRolePermissions(Integer roleId, Integer[] permissionIds);
 }

@@ -3,18 +3,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
     <!--包扫描:创建controller对象-->
     <context:component-scan base-package="com.linyang.controller"></context:component-scan>
+    <context:component-scan base-package="com.linyang.log"></context:component-scan>
 
     <!--注解驱动:关联自定义类型转换器-->
     <mvc:annotation-driven conversion-service="conversionService"/>
-
     <!--视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/pages/"></property>
@@ -28,7 +34,6 @@
 <!--    第二种放行方式-->
 <!--    <mvc:default-servlet-handler></mvc:default-servlet-handler>-->
 <!--    <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>-->
-
     <!--配置自定义类型转换器-->
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <!--注入类型转换器对象集合-->
@@ -38,4 +43,6 @@
             </set>
         </property>
     </bean>
+    <!--开启aop注解支持-->
+   <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.linyang.dao.UserDao;
 import com.linyang.domian.PageBean;
+import com.linyang.domian.Role;
 import com.linyang.domian.SysUser;
 import com.linyang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
          */
         //根据页面输入的用户名到数据库中查询用户数据
         SysUser sysUser = userDao.findByUserName(username);
-        //用户授权
+        //添加真正的角色从数据库中拿出来的
         List<GrantedAuthority> list = new ArrayList<>();
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
-        list.add(simpleGrantedAuthority);
+        //创建
+        List<Role> roleList = sysUser.getRoleList();
+
+        for (Role role : roleList) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_" + role.getRoleName());
+            list.add(simpleGrantedAuthority);
+        }
         //"{noop}"密码不加密
         //把用户和密码还有权限都给UserDetails让框架自动处理，我们处理不了
-        UserDetails userDetails = new User(sysUser.getUsername(),  sysUser.getPassword(), list);
+        UserDetails userDetails = new User(sysUser.getUsername(), sysUser.getPassword(), list);
         return userDetails;
     }
 
@@ -72,14 +78,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public String verificationUsername(String username) {
         SysUser sysUser = userDao.verificationUsername(username);
-       //如果sysuser是null就证明用户名不存在
-       if(sysUser == null)
-       {
-           return "1";
-       }
-       else {
-           return "0";
-       }
+        //如果sysuser是null就证明用户名不存在
+        if (sysUser == null) {
+            return "1";
+        } else {
+            return "0";
+        }
     }
 
 
@@ -102,5 +106,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public SysUser findById(Integer id) {
         SysUser sysUser = userDao.findById(id);
         return sysUser;
+    }
+
+    /**
+     * 保存用户角色添加
+     *
+     * @param userId
+     * @param roleIds
+     */
+    @Override
+    public void saveUserRole(Integer userId, Integer[] roleIds) {
+        //首先清空用户中的所有角色
+        userDao.delUserRoles(userId);
+
+        //判断roleIds是否为null
+        if (roleIds != null) {   //循环roleIds为用户添加角色信息
+            for (Integer roleId : roleIds) {
+                userDao.saveUserRole(userId, roleId);
+            }
+        }
     }
 }

@@ -1,5 +1,9 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--jstl的函数库--%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -92,11 +96,11 @@
 			<!-- 内容头部 /-->
 
 			<form
-				action="${pageContext.request.contextPath}/user/addRoleToUser.do"
+				action="${pageContext.request.contextPath}/user/saveUserRole"
 				method="post">
 				<!-- 正文区域 -->
 				<section class="content"> <input type="hidden" name="userId"
-					value="${user.id}">
+					value="${userID}">
 					<table id="dataList"
 							class="table table-bordered table-striped table-hover dataTable">
 							<thead>
@@ -112,11 +116,15 @@
 							<tbody>
 								<c:forEach items="${roleList}" var="role">
 									<tr>
-										<td><input name="ids" type="checkbox" value="${role.id}"></td>
+<%--										在也念头引入一个标签，判断字符串中的数据，如果字符串中的数据在这里跟--%>
+<%--										循环的系统所有角色相等就将其选中，就是用户原来就拥有的角色
+                                            ",".concat(role.id).concat(",")  这段代码就等于 ,1,
+                                            这样我们比较的就是 userRoleStr中是否带有 ,1,  字符串
+--%>
+										<td><input name="roleIds" type="checkbox"${fn:contains(userRolesStr,",".concat(role.id).concat(","))?"checked":""} value="${role.id}"></td>
 										<td>${role.id}</td>
 										<td>${role.roleName }</td>
 										<td>${role.roleDesc}</td>
-										
 									</tr>
 								</c:forEach>
 							</tbody>

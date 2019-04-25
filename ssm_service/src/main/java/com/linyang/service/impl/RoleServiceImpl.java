@@ -40,4 +40,23 @@ public class RoleServiceImpl implements RoleService {
     public void save(Role role) {
         roleDao.save(role);
     }
+
+    @Override
+    public Role findById(Integer roleId) {
+
+        return roleDao.findById(roleId);
+    }
+
+    @Override
+    public void saveRolePermissions(Integer roleId, Integer[] permissionIds) {
+        //首先清空所有角色所带的权限
+        roleDao.delRolePermissions(roleId);
+        //判断permissionIds是否为null
+        if(permissionIds != null)
+        {
+            for (Integer permissionId : permissionIds) {
+                  roleDao.saveRolePermissions(roleId,permissionId);
+            }
+        }
+    }
 }
